@@ -1,0 +1,638 @@
+/* Custom CSS for background image on home page */
+
+/* Styles for main page */
+/* Brain Tumor Detection System - Custom CSS */
+
+
+
+
+
+
+
+
+/* Brain Tumor Detection System - Custom CSS */
+
+
+:root {
+    --primary: #2272FF;
+    --primary-dark: #1a5cc7;
+    --accent: #00E0FF;
+    --dark: #1b2733;
+    --light: #ffffff;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.main-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/static/images/brainappfront.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: white;
+    padding: 3rem 2rem;
+}
+
+.upload-section {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(14, 22, 33, 0.85);
+    padding: 2.5rem 3rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: visible; /* Changed from hidden to visible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-section::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(34, 114, 255, 0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+    z-index: -1;
+    animation: pulse 15s infinite linear;
+}
+
+@keyframes pulse {
+    0% { transform: rotate(0deg) scale(1); opacity: 0.3; }
+    50% { transform: rotate(180deg) scale(1.2); opacity: 0.5; }
+    100% { transform: rotate(360deg) scale(1); opacity: 0.3; }
+}
+
+.upload-section:hover {
+    box-shadow: 0 15px 40px rgba(34, 114, 255, 0.6);
+    transform: translateY(-5px);
+}
+
+.upload-section h1 {
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    font-size: 2.6rem;
+    background: linear-gradient(90deg, var(--light), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.upload-section h1::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+#file-input {
+    display: none;
+}
+
+.custom-file-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--primary), #4e94ff);
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(34, 114, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    width: 280px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.custom-file-label::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s ease;
+}
+
+.custom-file-label:hover::before {
+    left: 100%;
+}
+
+.custom-file-label:hover {
+    background: linear-gradient(135deg, #1a5cc7, #3b7fef);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(34, 114, 255, 0.5);
+}
+
+.custom-file-label svg {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#upload-form button {
+    margin-top: 1.8rem;
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#upload-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 123, 255, 0.6);
+    background: linear-gradient(45deg, #1b5ec8, #00c2ff);
+}
+
+#upload-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+#upload-form button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.6s ease;
+}
+
+#upload-form button:hover::after {
+    left: 100%;
+}
+
+.file-selected {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: var(--light);
+    font-size: 1rem;
+    max-width: 400px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+.file-selected svg {
+    color: var(--success);
+    margin-right: 8px;
+    vertical-align: text-top;
+}
+
+/* Improved loading container with z-index */
+.loading-container {
+    display: none;
+    margin: 3rem auto;
+    text-align: center;
+    width: 100%;
+    animation: fadeIn 0.5s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.brain-loader {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+}
+
+.brain-outline {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: rotate 5s linear infinite;
+}
+
+/* Fixed brain-pulse animation */
+.brain-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(34, 114, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+    100% { transform: scale(0.8); opacity: 0.3; }
+}
+
+.brain-wave {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-50%);
+    overflow: hidden;
+}
+
+.wave {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.wave::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--primary), var(--accent), transparent);
+    animation: waveMove 3s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: var(--light);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Improved Results Section */
+#result {
+    margin-top: 2rem;
+    display: none;
+    animation: fadeIn 1s ease;
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 50px; /* Add padding to bottom */
+}
+
+#result h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: var(--light);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    width: auto; /* Ensure proper width */
+}
+
+/* Fix for results card layout */
+.result-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    overflow: visible;
+}
+
+.image-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(34, 114, 255, 0.4);
+}
+
+.image-container h4 {
+    color: var(--light);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.image-container h4::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+}
+
+/* Improved image display with object-fit */
+.image-container img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.image-container img:hover {
+    transform: scale(1.02);
+}
+
+.table {
+    width: 100%;
+    color: var(--light);
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border: none;
+}
+
+.table th {
+    background-color: rgba(34, 114, 255, 0.2);
+    font-weight: 600;
+    text-align: left;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.table td {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.table tr {
+    margin-bottom: 10px;
+    display: table-row;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-positive {
+    background-color: var(--danger);
+    box-shadow: 0 0 10px var(--danger);
+}
+
+.status-negative {
+    background-color: var(--success);
+    box-shadow: 0 0 10px var(--success);
+}
+
+.status-uncertain {
+    background-color: var(--warning);
+    box-shadow: 0 0 10px var(--warning);
+}
+
+.progress {
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--light);
+    text-align: center;
+    white-space: nowrap;
+    background-color: var(--primary);
+    border-radius: 12px;
+    transition: width 1s ease;
+    box-shadow: 0 0 10px rgba(34, 114, 255, 0.7);
+    font-weight: 600;
+}
+
+/* Fix for download button positioning */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    margin-left: 20px; /* Add some margin */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(14, 22, 33, 0.95);
+    color: var(--light);
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-size: 0.9rem;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(14, 22, 33, 0.95) transparent transparent transparent;
+}
+
+.nav-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-btn {
+    background: linear-gradient(135deg, var(--primary), #4e94ff);
+    color: var(--light);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-btn:hover {
+    background: linear-gradient(135deg, #1a5cc7, #3b7fef);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(34, 114, 255, 0.4);
+    color: var(--light);
+}
+
+/* Header section style fix */
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Row spacing for better readability */
+.row {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .upload-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .upload-section h1 {
+        font-size: 2rem;
+    }
+    
+    .custom-file-label {
+        width: 100%;
+        font-size: 1rem;
+    }
+    
+    #upload-form button {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+    
+    .image-container {
+        margin-bottom: 1.5rem;
+    }
+    
+    .table th, .table td {
+        padding: 0.75rem;
+    }
+}
+
+/* Animation for result section appearance */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fixed download button styling */
+#download-pdf {
+    background: linear-gradient(135deg, #31a05f, #2ecc71);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+}
+
+#download-pdf:hover {
+    background: linear-gradient(135deg, #27914f, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+}
+
+#download-pdf svg {
+    margin-right: 8px;
+}

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Detection</title>
+    <style>
+        /* Base Styles */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: #080b1a;
+            color: white;
+        }
+
+        /* Layout */
+        .home-container {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .content-section {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, #080b1a 0%, #1e2756 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .animation-section {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Text Content */
+        .text-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-animation {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #b8c6db 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            line-height: 1.2;
+            position: relative;
+            animation: titleFadeIn 1.5s ease-out;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #427bff, #1dd3c6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .description-animation {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: #e0e6f5;
+            position: relative;
+            animation: textFadeIn 1.8s ease-out;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Feature Steps - 3D Tilted Boxes */
+        .feature-steps {
+            max-width: 550px;
+            margin: 3rem 0;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            background: rgba(20, 30, 70, 0.5);
+            border-radius: 10px;
+            transform: perspective(1000px) rotateY(-8deg) rotateX(4deg);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            backdrop-filter: blur(6px);
+            width: 90%;
+            border-top: 2px solid rgba(66, 123, 255, 0.4);
+            border-bottom: 2px solid rgba(29, 211, 198, 0.4);
+        }
+
+        .step:nth-child(even) {
+            transform: perspective(1000px) rotateY(8deg) rotateX(-4deg);
+            margin-left: auto;
+            border-top: 2px solid rgba(29, 211, 198, 0.4);
+            border-bottom: 2px solid rgba(66, 123, 255, 0.4);
+        }
+
+        .step:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-5px);
+            background: rgba(30, 40, 80, 0.7);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #427bff, #1dd3c6);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(66, 123, 255, 0.4);
+            z-index: 2;
+        }
+
+        .step:nth-child(even) .step-number {
+            left: auto;
+            right: 15px;
+        }
+
+        .step-content h3 {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .step:nth-child(even) .step-content h3 {
+            padding-left: 0;
+            padding-right: 10px;
+        }
+
+        .step-content h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, #427bff, #1dd3c6);
+        }
+
+        .step:nth-child(even) .step-content h3::before {
+            left: auto;
+            right: 0;
+        }
+
+        .step-content p {
+            color: #b8c6db;
+            line-height: 1.5;
+            margin: 0;
+            padding-left: 10px;
+            font-size: 0.9rem;
+        }
+
+        .step:nth-child(even) .step-content p {
+            padding-left: 0;
+            padding-right: 10px;
+        }
+
+        /* Navigation Buttons */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            min-width: 140px;
+            font-size: 0.95rem;
+        }
+
+        .main-btn {
+            background: linear-gradient(135deg, #427bff 0%, #1dd3c6 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(66, 123, 255, 0.4);
+        }
+
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(66, 123, 255, 0.6);
+        }
+
+        .about-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid #427bff;
+        }
+
+        .about-btn:hover {
+            background-color: rgba(66, 123, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Brain Animation Styles */
+        .brain-container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        .brain-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath fill='rgba(66, 123, 255, 0.2)' d='M200,50 C270,50 320,120 320,190 C320,260 270,330 200,330 C130,330 80,260 80,190 C80,120 130,50 200,50 Z M200,75 C160,75 130,110 130,150 C130,190 150,210 150,230 C150,250 140,270 160,290 C180,310 220,310 240,290 C260,270 250,250 250,230 C250,210 270,190 270,150 C270,110 240,75 200,75 Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 10px rgba(66, 123, 255, 0.5));
+        }
+
+        .brain-outline {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath fill='none' stroke='%23427bff' stroke-width='2' d='M200,50 C270,50 320,120 320,190 C320,260 270,330 200,330 C130,330 80,260 80,190 C80,120 130,50 200,50 Z M200,75 C160,75 130,110 130,150 C130,190 150,210 150,230 C150,250 140,270 160,290 C180,310 220,310 240,290 C260,270 250,250 250,230 C250,210 270,190 270,150 C270,110 240,75 200,75 Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: pulse 4s infinite alternate;
+        }
+
+        .brain-hemispheres {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cpath fill='none' stroke='rgba(29, 211, 198, 0.3)' stroke-width='1' d='M200,50 C270,50 320,120 320,190 C320,260 270,330 200,330 M200,50 C130,50 80,120 80,190 C80,260 130,330 200,330 M200,50 L200,330'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #1dd3c6;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #1dd3c6;
+            opacity: 0.8;
+            z-index: 3;
+        }
+
+        .connection {
+            position: absolute;
+            background-color: rgba(66, 123, 255, 0.5);
+            transform-origin: 0 0;
+            z-index: 2;
+            box-shadow: 0 0 3px rgba(66, 123, 255, 0.5);
+        }
+
+        .synapse {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 4;
+        }
+
+        .activity-wave {
+            position: absolute;
+            width: 70%;
+            height: 20px;
+            bottom: 50px;
+            left: 15%;
+            z-index: 5;
+        }
+
+        .activity-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #427bff, #1dd3c6, #427bff, transparent);
+            position: relative;
+        }
+
+        .activity-line::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            animation: waveMove 4s infinite linear;
+        }
+
+        .brain-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(66, 123, 255, 0.15) 0%, rgba(29, 211, 198, 0.05) 50%, transparent 70%);
+            animation: glowPulse 4s infinite alternate;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes titleFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(66, 123, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(29, 211, 198, 0.7));
+            }
+            100% {
+                filter: drop-shadow(0 0 5px rgba(66, 123, 255, 0.5));
+            }
+        }
+
+        @keyframes pulseOpacity {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .home-container {
+                flex-direction: column;
+            }
+            .content-section, .animation-section {
+                width: 100%;
+                min-height: 50vh;
+            }
+            .brain-container {
+                width: 300px;
+                height: 300px;
+            }
+            .title-animation {
+                font-size: 2.5rem;
+            }
+            .description-animation {
+                font-size: 1rem;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .step {
+                transform: perspective(800px) rotateY(-6deg) rotateX(3deg);
+                width: 85%;
+            }
+            .step:nth-child(even) {
+                transform: perspective(800px) rotateY(6deg) rotateX(-3deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+            .brain-container {
+                width: 250px;
+                height: 250px;
+            }
+            .title-animation {
+                font-size: 2rem;
+            }
+            .step {
+                transform: none !important;
+                width: 100%;
+                padding: 1rem;
+            }
+            .step:nth-child(even) {
+                transform: none !important;
+            }
+            .step-number {
+                left: 15px !important;
+                right: auto !important;
+            }
+            .step-content h3,
+            .step-content p {
+                padding-left: 10px !important;
+                padding-right: 0 !important;
+            }
+            .step-content h3::before {
+                left: 0 !important;
+                right: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <div class="content-section">
+            <div class="text-content">
+                <h1 class="title-animation">Welcome to <span class="gradient-text">Brain Tumor Diagnosis</span></h1>
+                <p class="description-animation">
+                    Our explainable AI system helps medical professionals detect brain tumors with unprecedented accuracy using MRI scans.
+                </p>
+                
+                <div class="feature-steps">
+                    <div class="step">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3>Precise Tumor Detection</h3>
+                            <p>AI-powered analysis identifies tumors with 98% accuracy, reducing false positives.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3>Detailed Analysis Reports</h3>
+                            <p>Comprehensive reports with tumor measurements and 3D visualizations.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number"></div>
+                        <div class="step-content">
+                            <h3>Real-Time Processing</h3>
+                            <p>Get results in under 2 minutes with our optimized processing system.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="/main" class="nav-btn main-btn">
+                        Upload MRI Scan
+                    </a>
+                    <a href="/about" class="nav-btn about-btn">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="animation-section">
+            <div class="brain-container">
+                <!-- Brain animation elements will be added by JavaScript -->
+                <div class="activity-wave">
+                    <div class="activity-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const brainContainer = document.querySelector('.brain-container');
+            
+            // Add static brain elements
+            const brainElements = ['brain-glow', 'brain-bg', 'brain-hemispheres', 'brain-outline'];
+            brainElements.forEach(el => {
+                const element = document.createElement('div');
+                element.classList.add(el);
+                brainContainer.prepend(element);
+            });
+            
+            // Define brain boundaries
+            const brainShape = [
+                {x: 200, y: 60, r: 120}, // Top center
+                {x: 200, y: 320, r: 120}, // Bottom center
+                {x: 120, y: 190, r: 80}, // Left center
+                {x: 280, y: 190, r: 80}, // Right center
+                {x: 150, y: 140, r: 60}, // Left top lobe
+                {x: 250, y: 140, r: 60}, // Right top lobe
+                {x: 150, y: 250, r: 60}, // Left bottom lobe
+                {x: 250, y: 250, r: 60}, // Right bottom lobe
+            ];
+            
+            // Create nodes
+            const numberOfNodes = 30;
+            const nodes = [];
+            
+            function isPointInBrain(x, y) {
+                for (const center of brainShape) {
+                    const dx = center.x - x;
+                    const dy = center.y - y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < center.r) return true;
+                }
+                return false;
+            }
+            
+            function getRandomPositionInBrain() {
+                let x, y;
+                do {
+                    x = Math.random() * 300 + 50;
+                    y = Math.random() * 260 + 70;
+                } while (!isPointInBrain(x, y));
+                return {x, y};
+            }
+            
+            // Create brain nodes
+            for (let i = 0; i < numberOfNodes; i++) {
+                const node = document.createElement('div');
+                node.classList.add('node');
+                const position = getRandomPositionInBrain();
+                node.style.left = `${position.x}px`;
+                node.style.top = `${position.y}px`;
+                const size = 4 + Math.random() * 6;
+                node.style.width = `${size}px`;
+                node.style.height = `${size}px`;
+                const animDuration = 2 + Math.random() * 3;
+                node.style.animation = `pulseOpacity ${animDuration}s infinite alternate ${Math.random() * 2}s`;
+                brainContainer.appendChild(node);
+                nodes.push({element: node, x: position.x, y: position.y, size: size});
+            }
+            
+            // Create connections between nodes
+            const connections = [];
+            for (let i = 0; i < nodes.length; i++) {
+                const otherNodes = [...nodes];
+                otherNodes.splice(i, 1);
+                otherNodes.sort((a, b) => {
+                    const distA = Math.sqrt(Math.pow(a.x - nodes[i].x, 2) + Math.pow(a.y - nodes[i].y, 2));
+                    const distB = Math.sqrt(Math.pow(b.x - nodes[i].x, 2) + Math.pow(b.y - nodes[i].y, 2));
+                    return distA - distB;
+                });
+                const connectCount = Math.floor(Math.random() * 3) + 2;
+                for (let j = 0; j < Math.min(connectCount, otherNodes.length); j++) {
+                    if (Math.random() > 0.3) {
+                        const connection = createConnection(nodes[i], otherNodes[j]);
+                        connections.push({from: nodes[i], to: otherNodes[j], element: connection});
+                    }
+                }
+            }
+            
+            function createConnection(nodeA, nodeB) {
+                const connection = document.createElement('div');
+                connection.classList.add('connection');
+                const dx = nodeB.x - nodeA.x;
+                const dy = nodeB.y - nodeA.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                connection.style.width = `${distance}px`;
+                connection.style.height = '1px';
+                connection.style.left = `${nodeA.x + nodeA.size/2}px`;
+                connection.style.top = `${nodeA.y + nodeA.size/2}px`;
+                connection.style.transform = `rotate(${angle}deg)`;
+                connection.style.animation = `pulseOpacity ${2 + Math.random() * 3}s infinite alternate ${Math.random() * 2}s`;
+                brainContainer.appendChild(connection);
+                return connection;
+            }
+            
+            // Create neural activity animations
+            function animateSynapses() {
+                const activeConnections = connections.filter(() => Math.random() > 0.8);
+                activeConnections.forEach(conn => {
+                    const synapse = document.createElement('div');
+                    synapse.classList.add('synapse');
+                    brainContainer.appendChild(synapse);
+                    const duration = 500 + Math.random() * 500;
+                    synapse.style.left = `${conn.from.x + conn.from.size/2}px`;
+                    synapse.style.top = `${conn.from.y + conn.from.size/2}px`;
+                    synapse.animate([
+                        { left: `${conn.from.x + conn.from.size/2}px`, top: `${conn.from.y + conn.from.size/2}px`, opacity: 0 },
+                        { left: `${conn.from.x + conn.from.size/2 + (conn.to.x - conn.from.x) * 0.1}px`, top: `${conn.from.y + conn.from.size/2 + (conn.to.y - conn.from.y) * 0.1}px`, opacity: 0.8 },
+                        { left: `${conn.from.x + conn.from.size/2 + (conn.to.x - conn.from.x) * 0.9}px`, top: `${conn.from.y + conn.from.size/2 + (conn.to.y - conn.from.y) * 0.9}px`, opacity: 0.8 },
+                        { left: `${conn.to.x + conn.to.size/2}px`, top: `${conn.to.y + conn.to.size/2}px`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    }).onfinish = () => {
+                        conn.to.element.animate([
+                            { transform: 'scale(1)', boxShadow: '0 0 8px #1dd3c6' },
+                            { transform: 'scale(1.5)', boxShadow: '0 0 15px #1dd3c6' },
+                            { transform: 'scale(1)', boxShadow: '0 0 8px #1dd3c6' }
+                        ], { duration: 300, easing: 'ease-out' });
+                        synapse.remove();
+                    };
+                });
+                setTimeout(animateSynapses, 200 + Math.random() * 300);
+            }
+            
+            // Start animations
+            setTimeout(animateSynapses, 1000);
+        });
+    </script>
+</body>
+</html>
